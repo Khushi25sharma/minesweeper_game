@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1><i>Minesweeper Game</i></h1>
+    <div class="InputForm">
+        <form action="">
+
+            <div class="UserInput">
+                <label for="GridSizeInput">Choose Grid Size</label>
+                <input type="number" id="GridSizeInput" name="GridSizeInput" placeholder="Eg choose 5 for 5*5 grid" value="">
+            </div>
+
+            <div class="UserInput">
+                <label for="NoOfMinesInput">Choose no of Mines</label>
+                <input type="number" id="NoOfMinesInput" name="NoOfMinesInput" placeholder="No of mines can not be equal or greater then the grid size">
+            </div>
+
+            <div class="btns">
+                <button id="StartGame">Start Game</button>
+                <button id="StopGame">Stop Game</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="scoreboard">
+
+        <div class="score">
+            <h4>Score :</h4>
+            <p id="CurrScore">0</p>
+        </div>
+
+        <div class="TilesCount">
+            <h4>Tiles Clicked :</h4>
+            <p id="Tiles-Clicked">0</p>
+        </div>
+
+        <div class="TilesCount">
+            <h4>Remaining Tiles :</h4>
+            <p id="Remaining-Tiles :">0</p>
+        </div>
+
+    </div>
+        
+    <script src="script.js"></script>
+</body>
+</html>
