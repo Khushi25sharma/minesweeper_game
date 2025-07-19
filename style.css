@@ -78,7 +78,7 @@ margin-top: 2rem;
     font-size: 1rem;
 }
 
-.Rows{
+/* .Rows{
     display: grid;
     grid-row: auto;
     border: 1px;
@@ -92,4 +92,18 @@ grid-column: auto;
 padding: 10px;
 margin-bottom: 10px;
 background-color: black;
-}
+} */
+
+/* .game{
+    display:grid;
+    padding:2rem;
+    background-color:rgb(245, 165, 212);
+    border-radius: 70px;
+    margin-top:5rem;
+    margin-right:4rem;
+    margin-left:4rem;   
+    } */
+
+    .test{
+        background-color: aquamarine;
+    }
