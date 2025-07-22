@@ -107,3 +107,8 @@ background-color: black;
     .test{
         background-color: aquamarine;
     }
+
+.img {
+       background-image:url("mines.jpg") ; 
+       background-size: cover;
+    }
