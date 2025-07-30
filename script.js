@@ -72,20 +72,35 @@ function gridClick(block){
             }
         }
         if(counter==0){
-            console.log("it is not a mine");
-            Points = Points+10;
-            clickedTiles= clickedTiles+1;
-            remainedTiles=remainedTiles-1;
-            showingscore(Points);
-            trackingClickedTiles(clickedTiles);
-            showingRemainingTilesCount(remainedTiles);
-            return Points;
+            if(counter==0 && remainedTiles!=n+1){
+                console.log("it is not a mine");
+                Points = Points+10;
+                clickedTiles= clickedTiles+1;
+                remainedTiles=remainedTiles-1;
+                showingscore(Points);
+                trackingClickedTiles(clickedTiles);
+                showingRemainingTilesCount(remainedTiles);
+                return Points;
+            }
+            else{
+                console.log("you won");
+                Points = Points+10;
+                alert("You Won!\nTotal score = "+ Points);
+                endingGame();
+                return alert;
+            }
         }
+        // else if(counter==0 && remainedTiles==n+1)
+        // {
+        //     console.log("you won");
+        //     alert("You Won!/n"+ Points);
+        //     endingGame();
+        //     return alert;
+        // }
         else{
             console.log("it is a mine");
             paragh.innerText=String.fromCodePoint(0x1F4A3);
-            // Blocks.removeAttribute("onclick");
-            alert("You clicked on a mine.\nTotal score = "+ Points);
+            alert("Game Over!\nYou clicked on a mine.\nTotal score = "+ Points);
             endingGame();
             return alert;
         }
@@ -114,6 +129,8 @@ function endingGame(){
     showingscore(Points);
     trackingClickedTiles(clickedTiles);
     showingRemainingTilesCount(remainedTiles);
+    let removingGrid=document.getElementById("maingame");
+    removingGrid.remove();
 }
 
 
