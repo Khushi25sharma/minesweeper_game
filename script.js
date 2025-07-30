@@ -3,28 +3,37 @@ let arr;
 let accessingMinesPosition;
 let Points = 0;
 let clickedTiles = 0;
+let remainedTiles;
 
 function Taking_Grid_Input(){
     let chosen_grid_size = document.getElementById("GridSizeInput");
     let input_value = chosen_grid_size.value;
     return input_value;
 }
-
 function Taking_Mines_Input(){
     let mines_size = document.getElementById("NoOfMinesInput");
     let input_mines_size = mines_size.value;
     return input_mines_size;
 }
+function countingRemainingTiles(){
+    let accessingTotalTiles = Taking_Grid_Input();
+    remainedTiles = accessingTotalTiles*accessingTotalTiles;
+    let accessingremainingTilesCount= document.getElementById("Remaining-Tiles");
+    accessingremainingTilesCount.innerHTML=remainedTiles
+    return remainedTiles;
+}
 function showingscore(Value){
     let scoreContainer = document.getElementById("CurrScore");
     scoreContainer.innerHTML=Value;
-    
 }
 function trackingClickedTiles(val){
     let trackingContainer = document.getElementById("Tiles-Clicked");
     trackingContainer.innerHTML=val;
 }
-
+function showingRemainingTilesCount(valuess){
+    let remainingContainer=document.getElementById("Remaining-Tiles");
+    remainingContainer.innerHTML=valuess;
+}
 function gridClick(block){
     let paragh = block;
     Blocks= block.id;
@@ -43,8 +52,8 @@ function gridClick(block){
             showingscore(Points);
             clickedTiles= clickedTiles+1;
             trackingClickedTiles(clickedTiles);
-            console.log(Points);
-            console.log(clickedTiles);
+            remainedTiles=remainedTiles-1;
+            showingRemainingTilesCount(remainedTiles);
             return Points;
         }
         else{
@@ -58,7 +67,6 @@ function gridClick(block){
     }
     
 }
-
 function creatingGrid(){
     let user_input = Taking_Grid_Input();
     let Game=document.getElementById("maingame");
@@ -77,7 +85,6 @@ function creatingGrid(){
         Game.appendChild(NewRow);
     }
 }
-
 function getRandomGridPosition() {
     const accessingUserChoice = Taking_Grid_Input();
     const randomRowNo = Math.floor(Math.random() * accessingUserChoice);
@@ -85,8 +92,7 @@ function getRandomGridPosition() {
     let generatedRandomValue = randomRowNo+"_"+randomColNo;
     return generatedRandomValue ;
 }
-  
-function Postions_for_Mines(){
+  function Postions_for_Mines(){
     let user_mines_input = Taking_Mines_Input();
     let position;
     let arr = [];
@@ -97,10 +103,10 @@ function Postions_for_Mines(){
     return arr;
 }
 
-
 startGame.addEventListener ("click" , () => {
 creatingGrid()
 accessingMinesPosition = Postions_for_Mines();
+countingRemainingTiles();
 });
 
 
