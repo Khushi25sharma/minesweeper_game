@@ -1,4 +1,8 @@
 let startGame=document.getElementById("StartGame");
+let arr;
+let accessingMinesPosition;
+let Points = 0;
+let clickedTiles = 0;
 
 function Taking_Grid_Input(){
     let chosen_grid_size = document.getElementById("GridSizeInput");
@@ -11,18 +15,48 @@ function Taking_Mines_Input(){
     let input_mines_size = mines_size.value;
     return input_mines_size;
 }
-
-function gridClick(block){
-    console.log(block.id);
-    Blocks= block.id;
-    return Blocks;
+function showingscore(Value){
+    let scoreContainer = document.getElementById("CurrScore");
+    scoreContainer.innerHTML=Value;
+    
+}
+function trackingClickedTiles(val){
+    let trackingContainer = document.getElementById("Tiles-Clicked");
+    trackingContainer.innerHTML=val;
 }
 
-function getRandomGridPosition() {
-    const accessingUserChoice = Taking_Grid_Input();
-    const randomRowNo = Math.floor(Math.random() * accessingUserChoice);
-    const randomColNo = Math.floor(Math.random() * accessingUserChoice);
-    return { row: randomRowNo, col: randomColNo };
+function gridClick(block){
+    let paragh = block;
+    Blocks= block.id;
+    let n = accessingMinesPosition.length;
+    let counter = 0;
+    console.log(accessingMinesPosition);
+    for(let i=0; i<n; i++){
+        for(let j=0; j<n; j++){
+            if(Blocks==accessingMinesPosition[j]){
+                counter = counter+1;
+            }
+        }
+        if(counter==0){
+            console.log("it is not a mine");
+            Points = Points+10;
+            showingscore(Points);
+            clickedTiles= clickedTiles+1;
+            trackingClickedTiles(clickedTiles);
+            console.log(Points);
+            console.log(clickedTiles);
+            return Points;
+        }
+        else{
+            let message = "it is a mine" + String.fromCodePoint(0x1F4A3);
+            console.log(message);
+            paragh.innerText=String.fromCodePoint(0x1F4A3);
+            alert("you clicked on a mine");
+            return alert;
+        }
+
+    }
+    
 }
 
 function creatingGrid(){
@@ -35,27 +69,38 @@ function creatingGrid(){
    
         for(let j=0; j<user_input; j++) {
             NewCol=document.createElement("div");
-            NewCol.setAttribute('id', ''+(i)+(j));
+            NewCol.setAttribute('id',(i)+"_"+(j));
             NewCol.classList.add('grid', 'grid-rows-10', 'grid-flow-row-dense', 'gap-4',   'bg-indigo-950' ,  'rounded-lg', 'm-4');
-            NewCol.onclick= gridClick(NewCol);
+            NewCol.setAttribute('onclick', 'gridClick(this)');
             NewRow.appendChild(NewCol); 
         }
         Game.appendChild(NewRow);
     }
 }
+
+function getRandomGridPosition() {
+    const accessingUserChoice = Taking_Grid_Input();
+    const randomRowNo = Math.floor(Math.random() * accessingUserChoice);
+    const randomColNo = Math.floor(Math.random() * accessingUserChoice);
+    let generatedRandomValue = randomRowNo+"_"+randomColNo;
+    return generatedRandomValue ;
+}
   
 function Postions_for_Mines(){
     let user_mines_input = Taking_Mines_Input();
-    console.log(user_mines_input);
+    let position;
+    let arr = [];
     for(let i=1; i<=user_mines_input; i++) {
-        const position_i = getRandomGridPosition();
-        console.log(position_i);
+        position = getRandomGridPosition();
+        arr.push(position);
     }
+    return arr;
 }
+
 
 startGame.addEventListener ("click" , () => {
 creatingGrid()
-Postions_for_Mines();
+accessingMinesPosition = Postions_for_Mines();
 });
 
 
