@@ -90,13 +90,6 @@ function gridClick(block){
                 return alert;
             }
         }
-        // else if(counter==0 && remainedTiles==n+1)
-        // {
-        //     console.log("you won");
-        //     alert("You Won!/n"+ Points);
-        //     endingGame();
-        //     return alert;
-        // }
         else{
             console.log("it is a mine");
             paragh.innerText=String.fromCodePoint(0x1F4A3);
