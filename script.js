@@ -12,7 +12,7 @@ let NoToBeShown=0;
 let startGame=document.getElementById("StartGame");
 startGame.addEventListener ("click" , () => {
     Taking_Grid_Input();
-    Taking_Mines_Input();
+    Taking_Mines_Input(); 
     countingRemainingTiles();
 });
 function Taking_Grid_Input(){
@@ -101,6 +101,7 @@ function gridClick(block){
     }
     if(counter==0){
         if(counter==0 && remainedTiles!=n+1){
+            paragh.classList.add('bg-green-600');
             console.log("it is not a mine");
             Points = Points+10;
             clickedTiles= clickedTiles+1;
@@ -108,22 +109,21 @@ function gridClick(block){
             showingscore(Points);
             trackingClickedTiles(clickedTiles);
             showingRemainingTilesCount(remainedTiles);
-            return Points;
         }
         else{
+            paragh.classList.add('bg-green-600');
             console.log("you won");
             Points = Points+10;
             alert("You Won!\nTotal score = "+ Points);
             endingGame();
-            return alert;
         }
     }
     else{
+        paragh.classList.add('bg-red-700');
         console.log("it is a mine");
         paragh.innerText=String.fromCodePoint(0x1F4A3);
         alert("Game Over!\nYou clicked on a mine.\nTotal score = "+ Points);
         endingGame();
-        return alert;
     }
 }
 function showingscore(Value){
@@ -152,8 +152,6 @@ function endingGame(){
     let removingGrid=document.getElementById("maingame");
     removingGrid.remove();
 }
-
-
 
   
 
