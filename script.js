@@ -4,6 +4,11 @@ let Points = 0;
 let clickedTiles = 0;
 let remainedTiles;
 let arr = [];
+let tilesArr = [];
+let holderForRow;
+let holderForCol;
+let tilesMark;
+let NoToBeShown=0;
 let startGame=document.getElementById("StartGame");
 startGame.addEventListener ("click" , () => {
     Taking_Grid_Input();
@@ -51,52 +56,74 @@ function Postions_for_Mines(){
         position = getRandomGridPosition();
         arr.push(position);
     }
+    console.log(arr);
     return arr;
 }
 function getRandomGridPosition() {
     const randomRowNo = Math.floor(Math.random() * input_value);
     const randomColNo = Math.floor(Math.random() * input_value);
+    neighbouringMinesCount(randomRowNo,randomColNo)
     let generatedRandomValue = randomRowNo+"_"+randomColNo;
     return generatedRandomValue ;
+}
+function neighbouringMinesCount(r, c){
+    for(let i=r-1; i<=r+1; i++){
+        holderForRow=i;
+        for(let j=c-1; j<=c+1; j++){
+            holderForCol=j;
+            tilesMark = i+"_"+j;
+            tilesArr.push(tilesMark);
+        }
+    }
+    console.log(tilesArr);
 }
 function gridClick(block){
     let paragh = block;
     Blocks= block.id;
     let n = arr.length;
+    let m = tilesArr.length;
     let counter = 0;
     console.log(arr);
-    for(let i=0; i<n; i++){
-        for(let j=0; j<n; j++){
-            if(Blocks==arr[j]){
-                counter = counter+1;
-            }
+    for(let i=0; i<m; i++){
+        if(Blocks==tilesArr[i]){
+            NoToBeShown=NoToBeShown+1;
         }
-        if(counter==0){
-            if(counter==0 && remainedTiles!=n+1){
-                console.log("it is not a mine");
-                Points = Points+10;
-                clickedTiles= clickedTiles+1;
-                remainedTiles=remainedTiles-1;
-                showingscore(Points);
-                trackingClickedTiles(clickedTiles);
-                showingRemainingTilesCount(remainedTiles);
-                return Points;
-            }
-            else{
-                console.log("you won");
-                Points = Points+10;
-                alert("You Won!\nTotal score = "+ Points);
-                endingGame();
-                return alert;
-            }
+    }
+    if(NoToBeShown!=0){
+        paragh.innerText=NoToBeShown;
+        NoToBeShown=0;
+        console.log(NoToBeShown);
+    }
+    for(let j=0; j<n; j++){
+        if(Blocks==arr[j]){
+          counter = counter+1;
+        }
+    }
+    if(counter==0){
+        if(counter==0 && remainedTiles!=n+1){
+            console.log("it is not a mine");
+            Points = Points+10;
+            clickedTiles= clickedTiles+1;
+            remainedTiles=remainedTiles-1;
+            showingscore(Points);
+            trackingClickedTiles(clickedTiles);
+            showingRemainingTilesCount(remainedTiles);
+            return Points;
         }
         else{
-            console.log("it is a mine");
-            paragh.innerText=String.fromCodePoint(0x1F4A3);
-            alert("Game Over!\nYou clicked on a mine.\nTotal score = "+ Points);
+            console.log("you won");
+            Points = Points+10;
+            alert("You Won!\nTotal score = "+ Points);
             endingGame();
             return alert;
         }
+    }
+    else{
+        console.log("it is a mine");
+        paragh.innerText=String.fromCodePoint(0x1F4A3);
+        alert("Game Over!\nYou clicked on a mine.\nTotal score = "+ Points);
+        endingGame();
+        return alert;
     }
 }
 function showingscore(Value){
